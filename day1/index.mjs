@@ -1,9 +1,11 @@
 import * as fs from 'fs';
 import { solvePart1 } from './solve-part-1.mjs';
+import { solvePart2 } from './solve-part-2.mjs'
 
 
 withInput(input => {
     console.log(`Part 1 answer: ${solvePart1(input)}`);
+    console.log(`Part 2 answer: ${solvePart2(input)}`);
 });
 
 function withInput(callback) {
