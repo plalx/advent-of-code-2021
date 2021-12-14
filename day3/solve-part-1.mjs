@@ -1,16 +1,19 @@
 export function solvePart1(binaryNumbers) {
-    let gammaBits = '';
-    let epsilonBits = '';
+    let gammaRate = 0;
+    let epsilonRate = 0;
+    let nextBit = 1;
 
-    for (const mostCommon of findMostCommonBitPerColumn(binaryNumbers)) {
+    const mostCommonBits = findMostCommonBitPerColumn(binaryNumbers);
+
+    for (let i = mostCommonBits.length - 1; i >= 0; i--) {
+        const mostCommon = mostCommonBits[i];
         const leastCommon = +!mostCommon;
 
-        gammaBits += mostCommon;
-        epsilonBits += leastCommon;
-    }
+        gammaRate += mostCommon * nextBit;
+        epsilonRate += leastCommon * nextBit;
 
-    const gammaRate = parseInt(gammaBits, 2);
-    const epsilonRate = parseInt(epsilonBits, 2);
+        nextBit *= 2;
+    }
 
     return gammaRate * epsilonRate;
 }
