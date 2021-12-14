@@ -3,10 +3,7 @@ export function solvePart1(binaryNumbers) {
     let epsilonRate = 0;
     let nextBit = 1;
 
-    const mostCommonBits = findMostCommonBitPerColumn(binaryNumbers);
-
-    for (let i = mostCommonBits.length - 1; i >= 0; i--) {
-        const mostCommon = mostCommonBits[i];
+    for (const mostCommon of mostCommonBitPerCol(binaryNumbers)) {
         const leastCommon = +!mostCommon;
 
         gammaRate += mostCommon * nextBit;
@@ -18,15 +15,17 @@ export function solvePart1(binaryNumbers) {
     return gammaRate * epsilonRate;
 }
 
-function findMostCommonBitPerColumn(binaryNumbers) {
-    const oneBitCountsPerCol = new Array(binaryNumbers[0].length);
-    oneBitCountsPerCol.fill(0);
+function *mostCommonBitPerCol(binaryNumbers) {
+    const colCount = binaryNumbers[0].length;
+    const halfLength = binaryNumbers.length / 2;
+    
+    for (let colIndex = colCount - 1; colIndex >= 0; colIndex--) {
+        let oneBitCount = 0;
 
-    for (let num of binaryNumbers) {
-        for (let i = 0; i < num.length; i++) {
-            if (num[i] === '1') oneBitCountsPerCol[i]++;
+        for (const num of binaryNumbers) {
+            if (num[colIndex] === '1') oneBitCount++;
         }
-    }
 
-    return oneBitCountsPerCol.map(oneCount => Number(oneCount > binaryNumbers.length / 2));
+        yield +(oneBitCount > halfLength);
+    }
 }
