@@ -25,13 +25,13 @@ function parseGameData(tokenGenerator) {
     function parseDrawnNumbers() {
         const numbers = [];
         
-        do { numbers.push(matchNumber()); }
+        do { numbers.push(parseNumber()); }
         while (consumeIf(COMMA));
 
         return numbers;
     }
 
-    function matchNumber() {
+    function parseNumber() {
         return match(NUMBER).value;
     }
 
@@ -56,7 +56,7 @@ function parseGameData(tokenGenerator) {
     function parseBoardRow() {
         const row = [];
 
-        do { row.push(matchNumber()); }
+        do { row.push(parseNumber()); }
         while (consumeIf(WHITESPACE));
 
         return row;
