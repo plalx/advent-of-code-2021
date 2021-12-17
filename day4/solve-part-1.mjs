@@ -90,7 +90,7 @@ function parseGameData(tokenGenerator) {
 }
 
 function *tokenizeGameData(input) {
-    const lexPattern = /(\d+)|(,)|(\r?\n)|([\t\v\f ]+)|./g;
+    const tokenPattern = /(\d+)|(,)|(\r?\n)|([\t\v\f ]+)|./g;
     const matchIndex = {
         [NUMBER]: 1,
         [COMMA]: 2,
@@ -103,7 +103,7 @@ function *tokenizeGameData(input) {
     let previousToken;
     let colOffset = 0;
 
-    while (match = lexPattern.exec(input)) {
+    while (match = tokenPattern.exec(input)) {
         if (matchFor(NUMBER)) {
             yield emit(NUMBER, +matchFor(NUMBER));
             continue;
