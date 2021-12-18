@@ -8,23 +8,27 @@ export class Board {
     #won;
 
     constructor(rows) {
-        if (!rows.length) {
-            throw new Error("Board can't be empty.");
+        this.#validateRows(rows);
+
+        this.#size = rows.length;
+        this.#unmarkedNumbersPositions = this.#unmarkedNumbersPositionsFrom(rows);
+        this.#unmarkedCountPerRow = AxisCountTracker.ofSize(this.#size);
+        this.#unmarkedCountPerCol = AxisCountTracker.ofSize(this.#size);
+        this.#unmarkedCountInDiag = this.#size;
+        this.#won = false;
+    }
+
+    #validateRows(rows) {
+        if (rows.length < 2) {
+            throw new Error("Board minimum size is 2.");
         }
 
         const rowCount = rows[0].length;
         const colCount = rows.length;
 
         if (rowCount !== colCount) {
-            throw new Error('Board must have same number of rows & cols');
+            throw new Error('Board must be square.');
         }
-
-        this.#size = rowCount;
-        this.#unmarkedNumbersPositions = this.#unmarkedNumbersPositionsFrom(rows);
-        this.#unmarkedCountPerRow = AxisCountTracker.ofSize(this.#size);
-        this.#unmarkedCountPerCol = AxisCountTracker.ofSize(this.#size);
-        this.#unmarkedCountInDiag = this.#size;
-        this.#won = false;
     }
 
     mark(number) {
