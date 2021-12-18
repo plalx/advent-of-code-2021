@@ -1,8 +1,7 @@
 
 export class Board {
     #unmarkedNumbersPositions;
-    #rowCount;
-    #colCount;
+    #size;
     #unmarkedCountPerRow;
     #unmarkedCountPerCol;
     #unmarkedCountInDiag;
@@ -13,17 +12,18 @@ export class Board {
             throw new Error("Board can't be empty.");
         }
 
-        this.#rowCount = rows[0].length;
-        this.#colCount = rows.length;
+        const rowCount = rows[0].length;
+        const colCount = rows.length;
 
-        if (this.#rowCount !== this.#colCount) {
+        if (rowCount !== colCount) {
             throw new Error('Board must have same number of rows & cols');
         }
 
+        this.#size = rowCount;
         this.#unmarkedNumbersPositions = this.#unmarkedNumbersPositionsFrom(rows);
-        this.#unmarkedCountPerRow = AxisCountTracker.ofSize(this.#rowCount);
-        this.#unmarkedCountPerCol = AxisCountTracker.ofSize(this.#colCount);
-        this.#unmarkedCountInDiag = this.#rowCount;
+        this.#unmarkedCountPerRow = AxisCountTracker.ofSize(this.#size);
+        this.#unmarkedCountPerCol = AxisCountTracker.ofSize(this.#size);
+        this.#unmarkedCountInDiag = this.#size;
         this.#won = false;
     }
 
@@ -67,8 +67,8 @@ export class Board {
     #unmarkedNumbersPositionsFrom(rows) {
         const positionsMap = new Map();
 
-        for (let rowIndex = 0; rowIndex < this.#rowCount; rowIndex++) {
-            for (let colIndex = 0; colIndex < this.#colCount; colIndex++) {
+        for (let rowIndex = 0; rowIndex < this.#size; rowIndex++) {
+            for (let colIndex = 0; colIndex < this.#size; colIndex++) {
                 const num = rows[rowIndex][colIndex];
                 let positions = positionsMap.get(num);
 
