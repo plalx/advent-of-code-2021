@@ -39,10 +39,12 @@ function parseFromTokens(tokenGenerator) {
     }
 
     function parseBoards() {
-        const boards = [];
+        const boards = [parseBoard()];
 
-        do { boards.push(parseBoard()); }
-        while (consumeIf(LINE_BREAK) && lookahead.type !== EOS);
+        while (lookahead.type !== EOS) {
+            match(LINE_BREAK);
+            boards.push(parseBoard());
+        }
 
         return boards;
     }
