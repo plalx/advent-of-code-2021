@@ -1,9 +1,16 @@
+import { Line, Point } from "./line.mjs";
+
 export function parseLines(input) {
     return input.split(/\r?\n/)
         .map(line => line.split(' -> '))
-        .map(points => points.map(parsePoint));
+        .map(points => {
+            const [start, end] = points.map(parsePoint);
+            return new Line(start, end);
+        });
 }
 
 function parsePoint(point) {
-    return point.split(',').map(Number);
+    const [x, y] = point.split(',').map(Number);
+
+    return new Point(x, y);
 }
