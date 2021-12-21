@@ -39,7 +39,7 @@ export class VentDiagram {
             return;
         }
 
-        throw new Error('Only supports vertical, horizontal or 45 deg. lines: ' + JSON.stringify(line));
+        throw new Error(`Invalid line: ${line}. Only supports vertical, horizontal or 45 deg. lines.`);
     }
 
     countDangerPointsAbove(dangerLevelCriteria) {
