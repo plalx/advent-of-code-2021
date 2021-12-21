@@ -1,3 +1,5 @@
+import { parseLines } from './line-parser.mjs';
+
 export function solvePart1(input) {
     const horizontalOrVerticalLines = parseLines(input).filter(isHorizontalOrVertical);
     const [maxX, maxY] = maxOnEachAxisOf(horizontalOrVerticalLines);
@@ -97,14 +99,4 @@ function isHorizontal(line) {
 
 function isVertical(line) {
     return line[0][0] === line[1][0];
-}
-
-function parseLines(input) {
-    return input.split(/\r?\n/)
-        .map(line => line.split(' -> '))
-        .map(points => points.map(parsePoint));
-}
-
-function parsePoint(point) {
-    return point.split(',').map(Number);
 }

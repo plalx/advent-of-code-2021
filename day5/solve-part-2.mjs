@@ -1,3 +1,5 @@
+import { parseLines } from './line-parser.mjs';
+
 export function solvePart2(input) {
     const lines = parseLines(input);
     const [maxX, maxY] = maxOnEachAxisOf(lines);
@@ -116,14 +118,4 @@ function isVertical(line) {
 
 function is45Deg(line) {
     return Math.abs(line[0][0] - line[1][0]) === Math.abs(line[0][1] - line[1][1]);
-}
-
-function parseLines(input) {
-    return input.split(/\r?\n/)
-        .map(line => line.split(' -> '))
-        .map(points => points.map(parsePoint));
-}
-
-function parsePoint(point) {
-    return point.split(',').map(Number);
 }
