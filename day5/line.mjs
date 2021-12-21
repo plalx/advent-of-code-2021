@@ -29,6 +29,10 @@ export class Line {
     get maxY() {
         return Math.max(this.#start.y, this.#end.y);
     }
+
+    toString() {
+        return `${this.#start} -> ${this.#end}`;
+    }
 }
 
 export class Point {
@@ -42,5 +46,9 @@ export class Point {
 
     get x() { return this.#x; }
     get y() { return this.#y; }
+
+    toString() {
+        return this.x + ',' + this.y;
+    }
 }
 
